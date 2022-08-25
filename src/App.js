@@ -1,15 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import { Component } from 'react';
-import inventory from './inventory.ES6';
-import ComposeSalad from './ComposeSalad';
-import ViewOrder from './ViewOrder';
+import logo from "./logo.svg";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
+import { Component } from "react";
+import inventory from "./inventory.ES6";
+import ComposeSalad from "./ComposeSalad";
+import ViewOrder from "./ViewOrder";
 import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
-import ComposeSaladWrapper from './ComposeSaladWrapper';
-import ViewIngredient from './ViewIngredient';
-
-
+import ComposeSaladWrapper from "./ComposeSaladWrapper";
+import ViewIngredient from "./ViewIngredient";
 
 class App extends Component {
   constructor(props) {
@@ -18,15 +16,10 @@ class App extends Component {
     this.addSalad = this.addSalad.bind(this);
     this.handleRemoveButton = this.handleRemoveButton.bind(this);
   }
-  //let extras = Object.keys(inventory).filter(name => inventory[name].extra);
   addSalad(salad) {
-    this.setState(prevState => ({
-      shoppingCart: [...prevState.shoppingCart, salad]
+    this.setState((prevState) => ({
+      shoppingCart: [...prevState.shoppingCart, salad],
     }));
-
-    // let copyState = [...this.state.shoppingCart];
-    // copyState.push(salad);
-    // this.setState({ shoppingCart: copyState });
   }
 
   handleRemoveButton(event) {
@@ -45,20 +38,38 @@ class App extends Component {
   renderRouter() {
     return (
       <Routes>
-        <Route index  path="/" element={<h1>Välkommna!</h1>}/>
-        <Route path="/compose-salad" element={<ComposeSaladWrapper inventory={inventory} addToShoppingcart={this.addSalad} />} />
-        <Route path="/view-order" element={<ViewOrder order={this.state.shoppingCart} handleRemove={this.handleRemoveButton} />} />
-        <Route path="/view-ingredient/:name" element={<ViewIngredient inventory={inventory} />}/>
+        <Route index path="/" element={<h1>Välkommna!</h1>} />
         <Route
-      path="*"
-      element={
-        <main style={{ padding: "1rem" }}>
-          <p>Finns inget här!</p>
-        </main>
-      }
-    />
+          path="/compose-salad"
+          element={
+            <ComposeSaladWrapper
+              inventory={inventory}
+              addToShoppingcart={this.addSalad}
+            />
+          }
+        />
+        <Route
+          path="/view-order"
+          element={
+            <ViewOrder
+              order={this.state.shoppingCart}
+              handleRemove={this.handleRemoveButton}
+            />
+          }
+        />
+        <Route
+          path="/view-ingredient/:name"
+          element={<ViewIngredient inventory={inventory} />}
+        />
+        <Route
+          path="*"
+          element={
+            <main style={{ padding: "1rem" }}>
+              <p>Finns inget här!</p>
+            </main>
+          }
+        />
       </Routes>
-
     );
   }
 }
@@ -81,7 +92,8 @@ function Navbar() {
       <Link className="nav-link" to="/view-order">
         Visa beställningen
       </Link>
-    </ul>);
+    </ul>
+  );
 }
 
 function Footer() {
@@ -92,10 +104,4 @@ function Footer() {
   );
 }
 
-
 export default App;
-//{extras.map(name => <div key={name} className="col-4">{name}</div>)}
-
-//<ViewOrder order={this.state.shoppingCart} handleRemove = {this.handleRemoveButton} />
-
-//<ComposeSalad inventory={inventory} addToShoppingcart={this.addSalad} />
